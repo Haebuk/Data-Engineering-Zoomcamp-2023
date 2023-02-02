@@ -1,5 +1,7 @@
 # Data Engineering Zoomcamp
 
+test
+
 
 <p align="center">
   <a href="https://airtable.com/shr6oVXeQvSI5HuWD"><img src="https://user-images.githubusercontent.com/875246/185755203-17945fd1-6b64-46f2-8377-1011dcb1a444.png" height="50" /></a>
@@ -13,13 +15,27 @@
 
 Syllabus
 
-* [Week 1: Introduction & Prerequisites](#week-1-introduction--prerequisites)
-* [Week 2: Workflow Orchestration](#week-2-workflow-orchestration)
-* [Week 3: Data Warehouse](#week-3-data-warehouse)
-* [Week 4: Analytics Engineering](#week-4-analytics-engineering)
-* [Week 5: Batch processing](#week-5-batch-processing)
-* [Week 6: Streaming](#week-6-streaming)
-* [Week 7, 8 & 9: Project](#week-7-8--9-project)
+- [Data Engineering Zoomcamp](#data-engineering-zoomcamp)
+  - [Taking the course](#taking-the-course)
+    - [2023 Cohort](#2023-cohort)
+    - [Self-paced mode](#self-paced-mode)
+    - [Asking for help in Slack](#asking-for-help-in-slack)
+  - [Syllabus](#syllabus)
+    - [Week 1: Introduction \& Prerequisites](#week-1-introduction--prerequisites)
+    - [Week 2: Workflow Orchestration](#week-2-workflow-orchestration)
+    - [Week 3: Data Warehouse](#week-3-data-warehouse)
+    - [Week 4: Analytics engineering](#week-4-analytics-engineering)
+    - [Week 5: Batch processing](#week-5-batch-processing)
+    - [Week 6: Streaming](#week-6-streaming)
+    - [Week 7, 8 \& 9: Project](#week-7-8--9-project)
+  - [Overview](#overview)
+    - [Architecture diagram](#architecture-diagram)
+    - [Technologies](#technologies)
+    - [Prerequisites](#prerequisites)
+  - [Instructors](#instructors)
+  - [Tools](#tools)
+  - [FAQ](#faq)
+  - [Supporters and partners](#supporters-and-partners)
 
 ## Taking the course
 
