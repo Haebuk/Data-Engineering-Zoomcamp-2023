@@ -1,0 +1,55 @@
+###
+### A complete description of a Prefect Deployment for flow 'parent-etl-gcs-to-bq'
+###
+name: etl-gcs-to-bq
+description: Parent flow to load data to bigquery
+version: 0ae19f3c512b7d40891eecee4979a240
+# The work queue that will handle this deployment's runs
+work_queue_name: default
+tags: []
+parameters: {"color": "yellow", "months": [2, 3], "year": 2019}
+schedule: null
+infra_overrides: {}
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  block_type_slug: process
+  _block_type_slug: process
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: parent-etl-gcs-to-bq
+manifest_path: null
+storage: null
+path: /Users/ryujaesung/kade/Data-Engineering-Zoomcamp-2023/cohorts/2023/week2
+entrypoint: etl_gcs_to_bq.py:parent_etl_gcs_to_bq
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties:
+    months:
+      title: months
+      default:
+      - 2
+      - 3
+      position: 0
+      type: array
+      items: {}
+    color:
+      title: color
+      default: yellow
+      position: 1
+      type: string
+    year:
+      title: year
+      default: 2019
+      position: 2
+      type: integer
+  required: null
+  definitions: null
