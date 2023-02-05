@@ -75,7 +75,17 @@ Run your deployment in a local subprocess (the default if you don’t specify an
 How many rows were processed by the script?
 
 ```
-$ prefect deployment build oh
+$ prefect deployment build "cohorts/2023/week2/etl_web_to_gcs.py:etl_web_to_gcs" -sb github-repository/kade-git -n etl-web-to-gcs-with-git -a
+Found flow 'etl-web-to-gcs'
+Default '.prefectignore' file written to /Users/ryujaesung/kade/Data-Engineering-Zoomcamp-2023/.prefectignore
+Deployment YAML created at '/Users/ryujaesung/kade/Data-Engineering-Zoomcamp-2023/etl_web_to_gcs-deployment.yaml'.
+Deployment storage GitHubRepository(repository_url='https://github.com/Haebuk/Data-Engineering-Zoomcamp-2023.git', reference=None,
+credentials=GitHubCredentials(token=SecretStr('**********'))) does not have upload capabilities; no files uploaded.  Pass --skip-upload to suppress this
+warning.
+Deployment 'etl-web-to-gcs/etl-web-to-gcs-with-git' successfully created with id 'd03a65b9-1ca8-4dea-b498-5131c848a6a7'.
+
+To execute flow runs from this deployment, start an agent that pulls work from the 'default' work queue:
+$ prefect agent start -q 'default'
 ```
 
 - 88,019
@@ -107,11 +117,18 @@ Alternatively, you can grab the webhook URL from your own Slack workspace and Sl
 
 
 How many rows were processed by the script?
+```
+Flow run etl-web-to-gcs/fluffy-wildcat entered state `Completed` at 2023-02-05T08:12:01.381183+00:00.
+Flow ID: 42e9f310-7649-4321-b186-072b6b24ed75
+Flow run ID: d6114f0f-6a1f-4984-90d0-750c3072ce18
+Flow run URL: https://app.prefect.cloud/account/810de0ef-6f18-455b-b27a-ae47f63fbb16/workspace/ee52d87a-052e-4d7c-85c8-6a6b70c6ffce/flow-runs/flow-run/d6114f0f-6a1f-4984-90d0-750c3072ce18
+State message: All states completed.
+```
 
 - `125,268`
 - `377,922`
 - `728,390`
-- `514,392`
+- `514,392` o
 
 
 ## Question 6. Secrets
@@ -120,7 +137,7 @@ Prefect Secret blocks provide secure, encrypted storage in the database and obfu
 
 - 5
 - 6
-- 8
+- 8 o
 - 10
 
 

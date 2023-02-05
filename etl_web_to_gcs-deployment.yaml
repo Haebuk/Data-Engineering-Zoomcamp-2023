@@ -1,0 +1,50 @@
+###
+### A complete description of a Prefect Deployment for flow 'etl-web-to-gcs'
+###
+name: etl-web-to-gcs-with-git
+description: The main ETL function
+version: 299ac8d42550bf33867d76974ea09e3a
+# The work queue that will handle this deployment's runs
+work_queue_name: default
+tags: []
+parameters: {}
+schedule: null
+infra_overrides: {}
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  block_type_slug: process
+  _block_type_slug: process
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: etl-web-to-gcs
+manifest_path: null
+storage:
+  repository_url: https://github.com/Haebuk/Data-Engineering-Zoomcamp-2023.git
+  reference: null
+  credentials:
+    token: '**********'
+    _block_document_id: 64c60d4f-86ca-4bda-92be-b5ca6d1d809d
+    _block_document_name: prefect-cloud-creds
+    _is_anonymous: false
+    block_type_slug: github-credentials
+  _block_document_id: 84b8e58a-e42e-4eb8-b83a-b90ec4c877d6
+  _block_document_name: kade-git
+  _is_anonymous: false
+  block_type_slug: github-repository
+  _block_type_slug: github-repository
+path: ''
+entrypoint: cohorts/2023/week2/etl_web_to_gcs.py:etl_web_to_gcs
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties: {}
+  required: null
+  definitions: null
