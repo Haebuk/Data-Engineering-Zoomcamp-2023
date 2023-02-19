@@ -1,3 +1,6 @@
+###
+# Copyright 2013-2023 AFI, Inc. All Rights Reserved.
+###
 import requests
 from pathlib import Path
 from datetime import timedelta
@@ -8,7 +11,7 @@ from prefect_gcp.cloud_storage import GcsBucket
 from prefect.tasks import task_input_hash
 
 
-@task(retries=3)
+@task(retries=3, cache_key_fn=task_input_hash, cache_expiration=timedelta(days=1))
 def fetch_write_local(dataset_url: str, dataset_file: str) -> Path:
 
     # make path if it doesn't exist
@@ -27,8 +30,8 @@ def fetch_write_local(dataset_url: str, dataset_file: str) -> Path:
 def clean(df: pd.DataFrame) -> pd.DataFrame:
     """Fix dtype issues"""
     
-    df['pickup_datetime'] = pd.to_datetime(df['pickup_datetime'])
-    df['dropOff_datetime'] = pd.to_datetime(df['dropOff_datetime'])
+    df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])
+    df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])
     
     print(df.head(2))
     print(f"columns: {df.dtypes}")
@@ -47,18 +50,18 @@ def write_gcs(path: Path) -> None:
     )
     return
 
-@flow(log_prints=True)
-def etl_web_to_gcs() -> None:
+@flow()
+def etl_web_to_gcs(year: int) -> None:
     """The main ETL function"""
     
-    year = 2020
-    for month in range(1, 2):
-        dataset_file = f"fhv_tripdata_{year}-{month:02}"
-        dataset_url = f"https://github.com/DataTalksClub/nyc-tlc-data/releases/download/fhv/{dataset_file}.csv.gz"
+    for month in range(1, 13):
+        dataset_file = f"yellow_tripdata_{year}-{month:02}"
+        dataset_url = f"https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/{dataset_file}.csv.gz"
         print(dataset_url)
     
         path = fetch_write_local(dataset_url, dataset_file)
         write_gcs(path)
     
 if __name__ == "__main__":
-    etl_web_to_gcs()
+    etl_web_to_gcs(2019)
+    etl_web_to_gcs(2020)

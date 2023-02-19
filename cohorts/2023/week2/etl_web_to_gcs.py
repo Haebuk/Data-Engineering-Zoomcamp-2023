@@ -8,15 +8,22 @@ from prefect_github.repository import GitHubRepository
 def fetch(dataset_url: str) -> pd.DataFrame:
     """Read taxi data from web into pandas DataFrame"""
     
-    df = pd.read_csv(dataset_url)
+    df = pd.read_csv(dataset_url).astype(
+        {'PULocationID': 'float64', 'DOLocationID': 'float64'}
+    )
     return df
 
 @task(log_prints=True)
 def clean(df: pd.DataFrame) -> pd.DataFrame:
     """Fix dtype issues"""
+    if "lpep_pickup_datetime" in df.columns:
     
-    df['lpep_pickup_datetime'] = pd.to_datetime(df['lpep_pickup_datetime'])
-    df['lpep_dropoff_datetime'] = pd.to_datetime(df['lpep_dropoff_datetime'])
+        df['lpep_pickup_datetime'] = pd.to_datetime(df['lpep_pickup_datetime'])
+        df['lpep_dropoff_datetime'] = pd.to_datetime(df['lpep_dropoff_datetime'])
+    
+    else:
+        df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])
+        df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])
     
     print(df.head(2))
     print(f"columns: {df.dtypes}")
@@ -47,19 +54,26 @@ def write_gcs(path: Path) -> None:
     return
 
 @flow()
-def etl_web_to_gcs() -> None:
+def etl_web_to_gcs(color, year, month) -> None:
     """The main ETL function"""
     
-    color = "green"
-    year = 2019
-    month = 4
     dataset_file = f"{color}_tripdata_{year}-{month:02}"
     dataset_url = f"https://github.com/DataTalksClub/nyc-tlc-data/releases/download/{color}/{dataset_file}.csv.gz"
     
     df = fetch(dataset_url)
-    df_clean = clean(df)
+    df_clean = clean(df))
     path = write_local(df_clean, color, dataset_file)
     write_gcs(path)
     
+@flow()
+def etl_parent_flow(
+    months: list[int] = [1, 2], years: list[int] = [2019, 2020], color: str = "yellow"
+):
+    for year in years:
+        for month in months:
+            etl_web_to_gcs(color, year, month)
+    
 if __name__ == "__main__":
-    etl_web_to_gcs()
+    months = [i for i in range(1, 13)]
+    years = [2019, 2020]
+    etl_parent_flow(months=months, years=years, color="green")
